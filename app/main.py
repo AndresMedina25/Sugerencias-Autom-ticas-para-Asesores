@@ -8,6 +8,10 @@ from app.ai import generate_suggestion # Función para generar sugerencias usand
 # Inicializa la aplicación FastAPI con metadatos útiles
 app = FastAPI(title="Sugerencias Automáticas para Asesores", version="1.0.0")
 
+@app.get("/")
+def home():
+    return {"status": "API de Sugerencias Activa", "docs": "/docs"}
+
 # Configura CORS básico para permitir pruebas desde diferentes orígenes
 app.add_middleware(
     CORSMiddleware,
