@@ -32,3 +32,7 @@ def suggest(req: SuggestRequest):
     })
     
     return {"suggestion" : suggestion}
+
+@app.get("/history")
+def get_history():
+    return history
