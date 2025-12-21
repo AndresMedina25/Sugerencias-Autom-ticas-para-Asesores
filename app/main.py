@@ -36,3 +36,9 @@ def suggest(req: SuggestRequest):
 @app.get("/history")
 def get_history():
     return history
+
+# Manejar el estado en memoria y controlar su reinicio para pruebas
+@app.on_event("startup")
+def clear_history():
+    history.clear()
+
