@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, field_validator
 
-from suggest import load_knowledge_base, find_best_suggestion
+from app.suggest import load_knowledge_base, find_best_suggestion
 
 
 app = FastAPI(title="Sistema de Sugerencias para Asesores")
