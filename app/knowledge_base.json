@@ -1,0 +1,26 @@
+[
+  {
+    "pregunta": "¿Cómo cambio mi contraseña?",
+    "respuesta": "Puedes cambiar tu contraseña en la sección de configuración de tu perfil."
+  },
+  {
+    "pregunta": "¿Cuál es el horario de atención?",
+    "respuesta": "Nuestro horario es de lunes a viernes de 8 am a 5 pm."
+  },
+  {
+    "pregunta": "¿Cómo actualizo mi correo electrónico?",
+    "respuesta": "Ve a tu perfil y selecciona 'Información de contacto' para actualizar tu correo."
+  },
+  {
+    "pregunta": "¿Dónde puedo descargar mi factura?",
+    "respuesta": "Accede a 'Facturación' en tu panel y descarga la factura del periodo deseado."
+  },
+  {
+    "pregunta": "¿Cómo elimino mi cuenta?",
+    "respuesta": "Para eliminar tu cuenta, ve a la configuración de tu perfil y selecciona 'Eliminar cuenta'."
+  },
+  {
+    "pregunta": "¿Dónde veo mis pedidos?",
+    "respuesta": "En la sección 'Mis pedidos' del panel."
+  }
+]
