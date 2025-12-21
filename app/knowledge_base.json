@@ -1,26 +1,69 @@
 [
-  {
-    "pregunta": "¿Cómo cambio mi contraseña?",
-    "respuesta": "Puedes cambiar tu contraseña en la sección de configuración de tu perfil."
-  },
-  {
-    "pregunta": "¿Cuál es el horario de atención?",
-    "respuesta": "Nuestro horario es de lunes a viernes de 8 am a 5 pm."
-  },
-  {
-    "pregunta": "¿Cómo actualizo mi correo electrónico?",
-    "respuesta": "Ve a tu perfil y selecciona 'Información de contacto' para actualizar tu correo."
-  },
-  {
-    "pregunta": "¿Dónde puedo descargar mi factura?",
-    "respuesta": "Accede a 'Facturación' en tu panel y descarga la factura del periodo deseado."
-  },
-  {
-    "pregunta": "¿Cómo elimino mi cuenta?",
-    "respuesta": "Para eliminar tu cuenta, ve a la configuración de tu perfil y selecciona 'Eliminar cuenta'."
-  },
-  {
-    "pregunta": "¿Dónde veo mis pedidos?",
-    "respuesta": "En la sección 'Mis pedidos' del panel."
-  }
+{
+  "id": "password_change",
+  "title": "Cambio de contraseña",
+  "keywords": ["contraseña", "password", "clave", "seguridad"],
+  "examples": [
+    "¿Cómo cambio mi contraseña?",
+    "Olvidé mi contraseña",
+    "Actualizar password",
+    "Recuperar clave de acceso"
+  ],
+  "answer": "Puedes cambiar tu contraseña en la sección de configuración de tu perfil."
+},
+{
+  "id": "business_hours",
+  "title": "Horario de atención",
+  "keywords": ["horario", "atención", "abrir", "cerrar"],
+  "examples": [
+    "¿Cuál es el horario de atención?",
+    "¿A qué hora atienden?",
+    "Horario de servicio al cliente"
+  ],
+  "answer": "Nuestro horario de atención es de lunes a viernes de 8:00 a.m. a 5:00 p.m."
+},
+{
+  "id": "update_profile",
+  "title": "Actualizar datos personales",
+  "keywords": ["datos", "perfil", "actualizar", "información"],
+  "examples": [
+    "¿Cómo actualizo mis datos?",
+    "Cambiar información personal",
+    "Editar perfil"
+  ],
+  "answer": "Puedes actualizar tus datos personales desde la sección de perfil en tu cuenta."
+},
+{
+  "id": "download_documents",
+  "title": "Descarga de documentos",
+  "keywords": ["descargar", "documentos", "certificado", "archivo"],
+  "examples": [
+    "¿Dónde descargo mis documentos?",
+    "Descargar certificado",
+    "Obtener archivo"
+  ],
+  "answer": "Puedes descargar tus documentos desde la sección de documentos en la plataforma."
+},
+{
+  "id": "contact_support",
+  "title": "Contacto con soporte",
+  "keywords": ["soporte", "ayuda", "contactar", "problema"],
+  "examples": [
+    "Necesito ayuda",
+    "Contactar soporte",
+    "Tengo un problema"
+  ],
+  "answer": "Puedes contactar al equipo de soporte a través del formulario de contacto o vía correo electrónico."
+},
+{
+  "id": "cancel_service",
+  "title": "Cancelación de servicio",
+  "keywords": ["cancelar", "servicio", "suscripción", "baja"],
+  "examples": [
+    "Quiero cancelar el servicio",
+    "Dar de baja la suscripción",
+    "Cancelar mi cuenta"
+  ],
+  "answer": "Para cancelar el servicio debes comunicarte con soporte y solicitar la baja de tu suscripción."
+}
 ]
