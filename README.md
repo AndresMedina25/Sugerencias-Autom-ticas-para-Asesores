@@ -109,9 +109,5 @@ El proyecto está diseñado para ser simple, extensible y fácil de evaluar.
 ## Descripción
 API que sugiere respuestas basadas en preguntas frecuentes mientras asesores responden consultas de usuarios...
 
-## Instalación
-.
-.
-.
 # Autor
 Andres Fernando Medina Pino
