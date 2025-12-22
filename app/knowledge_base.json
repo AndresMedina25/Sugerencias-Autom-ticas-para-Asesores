@@ -114,5 +114,14 @@
       "Quiero comprar algo"
     ],
     "answer": "Puedes acceder a nuestros productos desde el apartado de tienda"
+  },
+  {
+    "id": "custom_8",
+    "title": "Quiero crear una segunda cuenta",
+    "keywords": [],
+    "examples": [
+      "Quiero crear una segunda cuenta"
+    ],
+    "answer": "Para crear una cuenta secundaria, ingresa en la configuración de tu perfil"
   }
 ]

@@ -56,5 +56,34 @@
             document.getElementById("response").textContent = "";
         }
     </script>
+
+    <h3>Agregar nueva pregunta</h3>
+
+    <textarea id="new-question" placeholder="Nueva pregunta"></textarea>
+    <textarea id="new-answer" placeholder="Nueva respuesta"></textarea>
+
+    <button onclick="addKnowledge()">Agregar</button>
+
+    <p id="add-result"></p>
+
+    <script>
+        async function addKnowledge() {
+        const question = document.getElementById("new-question").value;
+        const answer = document.getElementById("new-answer").value;
+
+        const res = await fetch("/knowledge", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question, answer })
+    });
+
+        const data = await res.json();
+
+        document.getElementById("add-result").textContent = data.message;
+
+        document.getElementById("new-question").value = "";
+        document.getElementById("new-answer").value = "";
+}
+    </script>
 </body>
 </html>
