@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, field_validator
 
-from suggest import load_knowledge_base, find_best_suggestion
+from app.suggest import load_knowledge_base, find_best_suggestion
 
 
 app = FastAPI(title="Sistema de Sugerencias para Asesores")
@@ -36,3 +36,9 @@ def suggest(req: SuggestRequest):
 @app.get("/history")
 def get_history():
     return history
+
+# Manejar el estado en memoria y controlar su reinicio para pruebas
+@app.on_event("startup")
+def clear_history():
+    history.clear()
+
