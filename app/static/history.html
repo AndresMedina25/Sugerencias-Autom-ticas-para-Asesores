@@ -1,0 +1,16 @@
+<nav class="menu">
+    <button onclick="location.href='/'">Ir a Inicio</button>
+    <button onclick="location.href='/view-add-knowledge'">Agregar Pregunta</button>
+</nav>
+
+<h2>Historial de Consultas</h2>
+<button onclick="getHistory()">Cargar Historial</button>
+<pre id="response"></pre>
+
+<script>
+    async function getHistory() {
+        const res = await fetch("/history");
+        const data = await res.json();
+        document.getElementById("response").textContent = JSON.stringify(data, null, 2);
+    }
+</script>

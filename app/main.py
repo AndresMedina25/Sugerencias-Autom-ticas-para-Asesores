@@ -48,8 +48,16 @@ def clear_history():
     history.clear()
 
 @app.get("/")
-def serve_ui():
+def serve_home():
     return FileResponse("app/static/index.html")
+
+@app.get("/view-history")
+def serve_history_page():
+    return FileResponse("app/static/history.html")
+
+@app.get("/view-add-knowledge")
+def serve_add_page():
+    return FileResponse("app/static/add_knowledge.html")
 
 @app.post("/knowledge")
 def add_knowledge(item: KnowledgeItem):
