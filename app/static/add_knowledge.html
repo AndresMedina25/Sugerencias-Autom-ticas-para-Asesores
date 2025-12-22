@@ -1,0 +1,27 @@
+<nav class="menu">
+    <button onclick="location.href='/'">Ir a Inicio</button>
+    <button onclick="location.href='/view-history'">Ver Historial</button>
+</nav>
+
+<h2>Agregar Nueva Información</h2>
+<input type="text" id="new-question" placeholder="Pregunta (mín. 3 caracteres)">
+<br><br>
+<textarea id="new-answer" placeholder="Respuesta (mín. 3 caracteres)"></textarea>
+<br>
+<button onclick="addKnowledge()">Guardar en Base de Datos</button>
+
+<script>
+    async function addKnowledge() {
+        const question = document.getElementById("new-question").value;
+        const answer = document.getElementById("new-answer").value;
+
+        const res = await fetch("/knowledge", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question, answer })
+        });
+
+        const data = await res.json();
+        alert(data.message);
+    }
+</script>

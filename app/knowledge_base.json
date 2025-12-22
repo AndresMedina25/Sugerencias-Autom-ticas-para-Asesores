@@ -123,5 +123,14 @@
       "Quiero crear una segunda cuenta"
     ],
     "answer": "Para crear una cuenta secundaria, ingresa en la configuración de tu perfil"
+  },
+  {
+    "id": "custom_9",
+    "title": "Quiero cambiar mi numero de cuenta",
+    "keywords": [],
+    "examples": [
+      "Quiero cambiar mi numero de cuenta"
+    ],
+    "answer": "Para cambiar su número de cuenta, ingrese en las configuraciones de usuario"
   }
 ]

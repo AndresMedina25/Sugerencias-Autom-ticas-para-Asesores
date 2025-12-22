@@ -39,3 +39,30 @@ pre {
     margin-top: 10px;
     font-size: 15px;
 }
+
+.menu {
+    background: #333;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.menu button {
+    background: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.menu button:hover {
+    background: #357abd;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
