@@ -2,9 +2,12 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, field_validator
 
 from app.suggest import load_knowledge_base, find_best_suggestion
-
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 app = FastAPI(title="Sistema de Sugerencias para Asesores")
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
 knowledge_base = load_knowledge_base()
 history = []
 
@@ -42,3 +45,6 @@ def get_history():
 def clear_history():
     history.clear()
 
+@app.get("/")
+def serve_ui():
+    return FileResponse("app/static/index.html")

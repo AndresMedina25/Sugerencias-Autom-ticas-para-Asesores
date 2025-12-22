@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sugerencias Automaticas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Sugerencias Automaticas para Asesores</h2>
+
+    <textarea id = "query" placeholder="Escribe la consulta del usuario ... "></textarea>
+    <div class="buttons">
+        <button onclick="sendQuery()">Enviar</button>
+        <button onclick="ClearFields()">Limpiar</button>
+        <button onclick="getHistory()">Ver Historial</button>
+    </div>
+
+    <pre id="response"></pre>
+
+    <script>
+        async function sendQuery() {
+            const query = document.getElementById("query").value;
+
+            const res = await fetch("/suggest", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ query })
+            });
+
+            const data = await res.json();
+            document.getElementById("response").textContent =
+                JSON.stringify(data, null, 2);
+        }
+
+        async function getHistory() {
+            const res = await fetch("/history");
+            const data = await res.json();
+            document.getElementById("response").textContent =
+                JSON.stringify(data, null, 2);
+        }
+
+        function clearFields() {
+            document.getElementById("query").value = "";
+            document.getElementById("response").textContent = "";
+        }
+    </script>
+</body>
+</html>
