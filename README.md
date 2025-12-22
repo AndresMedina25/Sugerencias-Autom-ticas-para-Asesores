@@ -1,36 +1,59 @@
 # Sugerencias Automáticas para Asesores
 
-## Tecnologias Utilizadas
-Python 3.12 (usado dentro del contenedor Docker)
+Este proyecto implementa una API RESTful que permite a asesores recibir sugerencias automáticas basadas en una base de conocimiento de preguntas frecuentes, mientras atienden consultas de usuarios.
 
-FastAPI – Framework web ligero para crear APIs
+La solución fue desarrollada como parte de una prueba técnica, priorizando claridad, simplicidad, buenas prácticas y facilidad de validación.
+
+## Tecnologias Utilizadas
+Python 3.12+
+
+FastAPI – Framework web
 
 Uvicorn – Servidor ASGI
 
 Pytest – Pruebas automatizadas
 
-Docker – Para ejecutar la aplicación en un entorno reproducible
+Docker – Contenerización
+
+HTML + CSS + JavaScript – Interfaz gráfica mínima
 
 ## Estructura del proyecto
 suggestions-assistant/
+
 │
 
 ├── app/
 
-│   ├── main.py              # Punto de entrada de la API
+│   ├── main.py               # Punto de entrada de la API
 
-│   ├── suggest.py           # Lógica de sugerencias y similitud
+│   ├── suggest.py            # Lógica de sugerencias y similitud
 
-│   └── knowledge_base.json  # Base de conocimiento
+│   ├── schemas.py            # Esquemas de validación (Pydantic)
+
+│   ├── knowledge_base.json   # Base de conocimiento
+
+│   └── __init__.py
 
 │
+
 ├── tests/
 
-│   ├── test_suggest.py      # Pruebas del endpoint /suggest
+│   ├── test_suggest.py       # Pruebas del endpoint /suggest
 
-│   └── test_history.py      # Pruebas del endpoint /history
+│   ├── test_history.py       # Pruebas del endpoint /history
+
+│   └── __init__.py
 
 │
+
+├── ui/
+
+│   ├── index.html            # Interfaz gráfica
+
+│   └── styles.css
+
+│
+
 ├── Dockerfile
 
 ├── requirements.txt
@@ -38,76 +61,155 @@ suggestions-assistant/
 ├── README.md
 
 └── .gitignore
-## Instalación y Ejecución de (Docker)
-### Construir la imagen
-docker build -t suggestions-assistant .
-### Ejercutar el contenedor
-docker build -t suggestions-assistant .
 
-#### NOTA
-La API estará disponible en (docker run -p 8000:8000 suggestions-assistant)
+## Endpoints Disponibles
+  ## POST /suggest
 
-## ENDPOINTS DISPONIBLES
-### POST/suggest
-Recibe una consulta del usuario y devuelve una sugerencia basada en la base de conocimiento.
+Recibe una consulta y devuelve una sugerencia basada en la base de conocimiento.
 
-**Ejemplo de entrada**
+Entrada
 
 {
-
   "query": "¿Cómo cambio mi contraseña?"
-  
 }
 
-**Ejemplo de salida**
+
+Salida
+
+{
+  "suggestion": "Puedes cambiar tu contraseña en la sección de configuración de tu perfil."
+}
+
+  ## GET /history
+
+Devuelve el historial de consultas realizadas y sus sugerencias.
+
+Salida
 
 [
+
   {
   
     "query": "¿Cómo cambio mi contraseña?",
     
     "suggestion": "Puedes cambiar tu contraseña en la sección de configuración de tu perfil."
     
-  }]
+  }
+  
+]
 
-## Logica de sugerencias
-La aplicación utiliza una búsqueda básica de similitud para encontrar la respuesta más cercana dentro de la base de conocimiento, apoyándose en coincidencias textuales simples.
+### POST /knowledge (Opcional)
 
-La base de conocimiento está almacenada en un archivo JSON y puede extenderse fácilmente agregando nuevas preguntas, ejemplos o palabras clave.
+Permite agregar nuevas preguntas y respuestas a la base de conocimiento.
 
-## Uso de IA generativa
-La IA generativa fue utilizada como herramienta de apoyo para:
+### Entrada
 
-Estructurar la base de conocimiento
+{
 
-Optimizar la organización del código
+  "question": "¿Dónde están ubicados?",
+  
+  "answer": "Estamos ubicados en la ciudad de Popayán."
+  
+}
 
-Acelerar el desarrollo manteniendo control total sobre la lógica de negocio
 
-La lógica principal de la aplicación fue diseñada y validada manualmente para garantizar claridad, mantenibilidad y correcto funcionamiento.
+### Salida
+
+{
+
+  "message": "Pregunta agregada correctamente"
+  
+}
+
+## Lógica de Sugerencias
+
+Se utiliza una búsqueda básica de similitud textual
+
+Se compara la consulta del usuario con las preguntas almacenadas
+
+Se devuelve la respuesta más cercana
+
+Si no hay coincidencias suficientes, se devuelve un mensaje informativo
+
+La base de conocimiento está almacenada en un archivo JSON y puede extenderse fácilmente.
 
 ## Pruebas
-El proyecto incluye pruebas básicas para cada endpoint.
 
-Para ejecutarlas:
+El proyecto incluye pruebas automatizadas para cada endpoint.
+
+### Ejecutar pruebas localmente
 
 pytest
 
-También es posible ejecutarlas dentro del contenedor Docker:
+### Ejecutar pruebas con Docker
 
 docker run --rm suggestions-assistant pytest
 
-## Notas finales
-El historial de consultas se almacena en memoria, según los requerimientos.
+## Ejecución con Docker
+### Construir la imagen
+docker build -t suggestions-assistant .
 
-No se utiliza base de datos.
+### Ejecutar el contenedor
+docker run -p 8000:8000 suggestions-assistant
 
-El proyecto está diseñado para ser simple, extensible y fácil de evaluar.
+### Acceder a la API
 
+API: http://localhost:8000
 
+Documentación Swagger: http://localhost:8000/docs
 
-## Descripción
-API que sugiere respuestas basadas en preguntas frecuentes mientras asesores responden consultas de usuarios...
+## Ejecución Local (Sin Docker)
+### Crear entorno virtual
+python -m venv .venv
 
-# Autor
-Andres Fernando Medina Pino
+### Activar entorno virtual
+
+Windows
+
+.venv\Scripts\activate
+
+### Instalar dependencias
+pip install -r requirements.txt
+
+### Ejecutar la aplicación
+uvicorn app.main:app --reload
+
+### Validar funcionamiento
+
+http://localhost:8000/docs
+
+Probar /suggest, /history y /knowledge
+
+### NOTA
+Para que el EndPoint knowledge funcione de manera correcta, se recomienda ejecutar el proyecto de manera local
+
+## Interfaz Gráfica
+
+La aplicación incluye una UI mínima desarrollada con HTML, CSS y JavaScript, separada en tres secciones:
+
+Consulta de sugerencias
+
+Visualización del historial
+
+Formulario para agregar nuevas preguntas
+
+Esta interfaz facilita la validación funcional sin necesidad de herramientas externas.
+
+## Notas Finales
+
+El historial se almacena en memoria
+
+No se utiliza base de datos
+
+La solución es simple, extensible y fácil de evaluar
+
+La arquitectura permite futuras mejoras como:
+
+Integración con IA generativa
+
+Persistencia en base de datos
+
+Mejora visual de la interfaz
+
+## Autor
+**Andres Fernando Medina Pino**
