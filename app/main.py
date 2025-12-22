@@ -1,16 +1,16 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, field_validator
-
-from app.suggest import load_knowledge_base, find_best_suggestion
+from app.suggest import load_knowledge_base, find_best_suggestion, knowledge_base, save_knowledge
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.responses import HTMLResponse
+from app.schemas import KnowledgeItem
+
 
 app = FastAPI(title="Sistema de Sugerencias para Asesores")
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-knowledge_base = load_knowledge_base()
 history = []
 
 class SuggestRequest(BaseModel):
@@ -50,3 +50,16 @@ def clear_history():
 @app.get("/")
 def serve_ui():
     return FileResponse("app/static/index.html")
+
+@app.post("/knowledge")
+def add_knowledge(item: KnowledgeItem):
+    new_item = {
+        "id": f"custom_{len(knowledge_base) + 1}", # Un ID string para seguir tu formato
+        "title": item.question,
+        "keywords": [], # Agregamos esto para que no rompa el buscador después
+        "examples": [item.question],
+        "answer": item.answer
+    }
+    knowledge_base.append(new_item)
+    save_knowledge()
+    return {"message": "Pregunta agregada correctamente"}
