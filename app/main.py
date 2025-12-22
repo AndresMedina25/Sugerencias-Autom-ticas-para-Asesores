@@ -4,8 +4,10 @@ from pydantic import BaseModel, field_validator
 from app.suggest import load_knowledge_base, find_best_suggestion
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from fastapi.responses import HTMLResponse
 
 app = FastAPI(title="Sistema de Sugerencias para Asesores")
+
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 knowledge_base = load_knowledge_base()

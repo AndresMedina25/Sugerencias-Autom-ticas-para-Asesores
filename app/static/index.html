@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Sugerencias Automaticas</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <h2>Sugerencias Automaticas para Asesores</h2>
 
-    <textarea id = "query" placeholder="Escribe la consulta del usuario ... "></textarea>
+    <textarea id = "query" placeholder="Escribe tu consulta"></textarea>
     <div class="buttons">
         <button onclick="sendQuery()">Enviar</button>
-        <button onclick="ClearFields()">Limpiar</button>
+        <button onclick="clearFields()">Limpiar</button>
         <button onclick="getHistory()">Ver Historial</button>
+    </div>
+
+    <div id="answer-box" class="answer-box">
+        <h3>Respuesta sugerida</h3>
+        <p id="answer-text">Aquí aparecerá la respuesta...</p>
     </div>
 
     <pre id="response"></pre>
@@ -23,24 +28,31 @@
 
             const res = await fetch("/suggest", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ query })
             });
 
             const data = await res.json();
-            document.getElementById("response").textContent =
-                JSON.stringify(data, null, 2);
+
+            // Mostrar solo la respuesta en la cajita
+            document.getElementById("answer-text").textContent = data.suggestion;
+
+            // Limpiar historial mostrado (opcional)
+            document.getElementById("response").textContent = "";
         }
 
         async function getHistory() {
             const res = await fetch("/history");
             const data = await res.json();
+
             document.getElementById("response").textContent =
                 JSON.stringify(data, null, 2);
         }
 
         function clearFields() {
             document.getElementById("query").value = "";
+            document.getElementById("answer-text").textContent =
+                "Aquí aparecerá la respuesta...";
             document.getElementById("response").textContent = "";
         }
     </script>
