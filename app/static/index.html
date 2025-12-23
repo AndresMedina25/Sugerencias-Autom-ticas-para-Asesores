@@ -2,98 +2,44 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente de Sugerencias - Inicio</title>
+    <title>Asistente - Consultar</title>
     <link rel="stylesheet" href="/static/styles.css">
-    <style>
-        /* Estilos específicos para la navegación que mencionamos */
-        .menu {
-            background: #333;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .menu button {
-            background: #4a90e2;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            margin-right: 10px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .menu button:hover {
-            background: #357abd;
-        }
-
-        .menu button.active {
-            background: #2c3e50;
-            border: 1px solid #4a90e2;
-        }
-    </style>
 </head>
-<body>
+<body class="page-index">
+    <div class="header-container">
+        <img src="/static/logo.png" alt="Logo" class="logo">
+        <h1>Asistente Virtual</h1>
+    </div>
 
     <nav class="menu">
         <button class="active" onclick="location.href='/'">Consultar</button>
-        <button onclick="location.href='/view-history'">Ver Historial</button>
+        <button onclick="location.href='/view-history'">Historial</button>
         <button onclick="location.href='/view-add-knowledge'">Agregar Pregunta</button>
     </nav>
 
-    <h2>Consultar Asistente</h2>
-    <p>Escribe tu duda y el sistema buscará la mejor respuesta en la base de conocimiento.</p>
-
-    <textarea id="query" placeholder="Ejemplo: ¿Cómo cambio mi contraseña?"></textarea>
-    
-    <div class="buttons">
-        <button onclick="sendQuery()">Enviar Consulta</button>
-        <button onclick="clearFields()">Limpiar</button>
-    </div>
+    <h2>¿En qué puedo ayudarte?</h2>
+    <textarea id="query" placeholder="Escribe tu duda aquí..."></textarea>
+    <button class="main-btn" onclick="sendQuery()">Enviar Consulta</button>
 
     <div id="answer-box" class="answer-box">
         <h3>Respuesta sugerida:</h3>
-        <p id="answer-text">Aquí aparecerá la respuesta...</p>
+        <p id="answer-text">Esperando consulta...</p>
     </div>
 
     <script>
         async function sendQuery() {
-            const queryElement = document.getElementById("query");
-            const answerText = document.getElementById("answer-text");
-            const query = queryElement.value;
+            const query = document.getElementById("query").value;
+            const textOutput = document.getElementById("answer-text");
+            if(!query.trim()) return alert("Escribe algo");
 
-            if (!query.trim()) {
-                alert("Por favor, escribe una pregunta.");
-                return;
-            }
-
-            answerText.textContent = "Buscando...";
-
-            try {
-                const res = await fetch("/suggest", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ query })
-                });
-
-                if (!res.ok) throw new Error("Error en el servidor");
-
-                const data = await res.json();
-                answerText.textContent = data.suggestion;
-            } catch (error) {
-                answerText.textContent = "Error al conectar con el asistente.";
-                console.error(error);
-            }
-        }
-
-        function clearFields() {
-            document.getElementById("query").value = "";
-            document.getElementById("answer-text").textContent = "Aquí aparecerá la respuesta...";
+            textOutput.textContent = "Buscando...";
+            const res = await fetch("/suggest", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query })
+            });
+            const data = await res.json();
+            textOutput.textContent = data.suggestion;
         }
     </script>
 </body>

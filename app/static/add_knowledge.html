@@ -1,27 +1,62 @@
-<nav class="menu">
-    <button onclick="location.href='/'">Ir a Inicio</button>
-    <button onclick="location.href='/view-history'">Ver Historial</button>
-</nav>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cari AI - Configuración</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="page-add">
+    <div class="header-container">
+        <img src="/static/logo.png" alt="Cari AI Logo" class="logo">
+    </div>
 
-<h2>Agregar Nueva Información</h2>
-<input type="text" id="new-question" placeholder="Pregunta (mín. 3 caracteres)">
-<br><br>
-<textarea id="new-answer" placeholder="Respuesta (mín. 3 caracteres)"></textarea>
-<br>
-<button onclick="addKnowledge()">Guardar en Base de Datos</button>
+    <nav class="menu">
+        <button onclick="location.href='/'">Consultar</button>
+        <button onclick="location.href='/view-history'">Historial</button>
+        <button class="active" onclick="location.href='/view-add-knowledge'">Configuración</button>
+    </nav>
 
-<script>
-    async function addKnowledge() {
-        const question = document.getElementById("new-question").value;
-        const answer = document.getElementById("new-answer").value;
+    <div class="content">
+        <h2>Entrenar Asistente</h2>
+        <p>Añade nuevas preguntas y respuestas para mejorar la precisión del sistema.</p>
+        
+        <div class="form-group">
+            <label>Pregunta del Usuario:</label>
+            <input type="text" id="question" placeholder="Escribe la pregunta base...">
+        </div>
+        
+        <div class="form-group">
+            <label>Respuesta del Sistema:</label>
+            <textarea id="answer" placeholder="Escribe la respuesta que el sistema debe dar..."></textarea>
+        </div>
+        
+        <button class="main-btn" onclick="addKnowledge()">Guardar Conocimiento</button>
+    </div>
 
-        const res = await fetch("/knowledge", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ question, answer })
-        });
+    <script>
+        async function addKnowledge() {
+            const question = document.getElementById("question").value;
+            const answer = document.getElementById("answer").value;
 
-        const data = await res.json();
-        alert(data.message);
-    }
-</script>
+            if(!question || !answer) return alert("Ambos campos son obligatorios.");
+
+            try {
+                const res = await fetch("/knowledge", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ question, answer })
+                });
+                const data = await res.json();
+                alert(data.message);
+                
+                // Limpiar campos tras guardar
+                document.getElementById("question").value = "";
+                document.getElementById("answer").value = "";
+            } catch (e) {
+                alert("Error al guardar en el servidor.");
+            }
+        }
+    </script>
+</body>
+</html>

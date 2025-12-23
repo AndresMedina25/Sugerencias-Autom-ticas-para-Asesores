@@ -1,16 +1,39 @@
-<nav class="menu">
-    <button onclick="location.href='/'">Ir a Inicio</button>
-    <button onclick="location.href='/view-add-knowledge'">Agregar Pregunta</button>
-</nav>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cari AI - Historial</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="page-history">
+    <div class="header-container">
+        <img src="/static/logo.png" alt="Cari AI Logo" class="logo">
+    </div>
 
-<h2>Historial de Consultas</h2>
-<button onclick="getHistory()">Cargar Historial</button>
-<pre id="response"></pre>
+    <nav class="menu">
+        <button onclick="location.href='/'">Consultar</button>
+        <button class="active" onclick="location.href='/view-history'">Historial</button>
+        <button onclick="location.href='/view-add-knowledge'">Configuración</button>
+    </nav>
 
-<script>
-    async function getHistory() {
-        const res = await fetch("/history");
-        const data = await res.json();
-        document.getElementById("response").textContent = JSON.stringify(data, null, 2);
-    }
-</script>
+    <div class="content">
+        <h2>Historial de Actividad</h2>
+        <p>Registro de las últimas consultas realizadas al asistente.</p>
+        
+        <button class="main-btn" onclick="getHistory()">Cargar Historial Reciente</button>
+        
+        <div class="history-results">
+            <pre id="response">Los datos aparecerán aquí...</pre>
+        </div>
+    </div>
+
+    <script>
+        async function getHistory() {
+            const res = await fetch("/history");
+            const data = await res.json();
+            document.getElementById("response").textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
