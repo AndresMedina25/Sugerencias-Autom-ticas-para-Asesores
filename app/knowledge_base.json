@@ -132,5 +132,14 @@
       "Quiero cambiar mi numero de cuenta"
     ],
     "answer": "Para cambiar su número de cuenta, ingrese en las configuraciones de usuario"
+  },
+  {
+    "id": "custom_10",
+    "title": "Quiero cancelar el servicio",
+    "keywords": [],
+    "examples": [
+      "Quiero cancelar el servicio"
+    ],
+    "answer": "PAra cancelar el servicio puede comunicarse con el area de atención al cliente"
   }
 ]
